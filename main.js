@@ -1,6 +1,6 @@
 //Author : vidya vepoori
-const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-const recognition = new SpeechRecognition();
+const SpeechRecogntion = window.SpeechRecogntion || window.webkitSpeechRecogntion;
+const recognition = new SpeechRecogntion();
 const outputElement = document.getElementById('output');
 
 function speak(text) {
