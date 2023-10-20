@@ -1,4 +1,4 @@
-
+//Author : vidya vepoori
 const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
 const recognition = new SpeechRecognition();
 const outputElement = document.getElementById('output');
@@ -76,8 +76,8 @@ function checkAllMessages(message) {
   }
 
   if (message.includes('fever')) {
-    console.log('Bot: What\'s your age');
     speak('What\'s your age');
+    console.log('Bot: What\'s your age');
     const ip = prompt('You (age in numbers):');
     console.log('You:', ip);
 
@@ -93,8 +93,8 @@ function checkAllMessages(message) {
   }
 
   if (message.includes('cough')) {
-    console.log('Bot: What\'s your age');
     speak('What\'s your age');
+    console.log('Bot: What\'s your age');
     const ip = prompt('You (age in numbers):');
     if (ip < 9) {
       return 'Data not present';
@@ -114,8 +114,8 @@ function checkAllMessages(message) {
   }
 
   if (message.includes('stomach') && message.includes('pain')) {
-    console.log('Bot: What\'s your age');
     speak('What\'s your age');
+    console.log('Bot: What\'s your age');
     const ip = prompt('You (age in numbers):');
     speak(ip);
     if (ip <= 10) {
@@ -127,8 +127,8 @@ function checkAllMessages(message) {
   }
 
   if (message.includes('headache')) {
-    console.log('Bot: What\'s your age');
     speak('What\'s your age');
+    console.log('Bot: What\'s your age');
     const ip = prompt('You (enter age in numbers):');
     speak(ip);
     if (ip > 2 && ip <= 10) {
@@ -140,8 +140,8 @@ function checkAllMessages(message) {
   }
 
   if (message.includes('cold')) {
-    console.log('Bot: What\'s your age');
     speak('What\'s your age');
+    console.log('Bot: What\'s your age');
     const ip = prompt('You (age in numbers):');
     if (ip > 3 && ip <= 16) {
       return 'Kindly take the prescribed medicine from the chemist: Medicine is CHLORPHENIRAMINE-1MG + PARACETAMOL-125MG + PHENYLEPHRINE-5MG + SODIUM CITRATE-60MG';
@@ -163,13 +163,18 @@ function checkAllMessages(message) {
 }
 outputElement.innerHTML += 'CLICK ON \'START\' TO BEGIN :) ';
 
+let listeningDisplayed = false; // Variable to track if "Listening..." has been displayed
+
 const speakButton = document.getElementById('speakButton');
 speakButton.addEventListener('click', function () {
   (async function () {
-    while (true) {
-      outputElement.innerHTML += '<br>Bot:Hello welcome to e-HealthConnect. pleased to meet you here you may tell us your medical issue so we can prescribe sutibal medicien please click Start to continue ';
+    if (!listeningDisplayed) {
+      outputElement.innerHTML += '<br>Bot:Hello welcome to e-HealthConnect. pleased to meet you here you may tell us your medical issue so we can prescribe suitable medicine. Please click Start to continue.';
       speak('Hello welcome to e-HealthConnect. pleased to meet you here you may tell us your medical issue so we can prescribe suitable medicine. Please click Start to continue.');
+      listeningDisplayed = true;
+    }
 
+    while (true) {
       const query = await takeCommand();
       const splitMessage = query.split(/\s+|[,;?!.-]\s*/);
       outputElement.innerHTML += '<br>You:' + query;
@@ -177,6 +182,13 @@ speakButton.addEventListener('click', function () {
       const res = checkAllMessages(splitMessage);
       outputElement.innerHTML += '<br>Bot:' + res;
       speak(res);
+
+      if (!listeningDisplayed) {
+        outputElement.innerHTML += '<br>Listening...';
+        listeningDisplayed = true;
+      }
     }
   })();
-})
+});
+
+
